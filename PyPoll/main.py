@@ -6,10 +6,8 @@ import statistics
 #set variables
 row_counter = 0
 candidate = ""
-total_votes = 0
 max_name = ""
 max_votes = 0
-vote_percentage = 0
 khan_votes = 0
 correy_votes = 0
 li_votes = 0
@@ -22,9 +20,13 @@ otooley_percentage = 0
 # Path to collect data from the Resources folder
 election_csv_path = os.path.join('Resources', 'election_data.csv')
 
+# Read in the CSV file
 with open(election_csv_path, 'r') as csvfile:
+
+    # Split the data on commas
     csvreader = csv.reader(csvfile, delimiter=",")
     
+    # Read the header row first
     header = next(csvreader)
 
     #read one line at a time
@@ -33,10 +35,10 @@ with open(election_csv_path, 'r') as csvfile:
         # The total number of votes cast
         row_counter = row_counter + 1
 
-        #create a variable to hold the candidate names
+        #create a variable to hold the candidate's name
         candidate = str(row[2])
         
-        #A complete list of candidates who received votes
+        #Tally the votes for each candidate
         if candidate =="Khan":
             khan_votes = khan_votes + 1
 
@@ -49,28 +51,31 @@ with open(election_csv_path, 'r') as csvfile:
         if candidate == "O'Tooley":
             otooley_votes = otooley_votes + 1
 
+    #Determine if Khan is the winner
     if khan_votes > correy_votes and khan_votes > li_votes and khan_votes > otooley_votes:
         max_votes = khan_votes
         max_name = ("Khan")
 
+    #Determine if Correy is the winner
     if correy_votes > khan_votes and correy_votes > li_votes and correy_votes > otooley_votes:
         max_votes = correy_votes
         max_name = ("Correy")
 
+    #Determine if Li is the winner
     if li_votes > khan_votes and li_votes > correy_votes and li_votes > otooley_votes:
         max_votes = li_votes
         max_name = ("Li")
 
-        
+    #Determine if O'Tooley is the winner    
     if otooley_votes > khan_votes and otooley_votes > correy_votes and otooley_votes > li_votes:
         max_votes = otooley_votes
         max_name = ("O'Tooley")
 
-total_votes = khan_votes + correy_votes + li_votes + otooley_votes      
-khan_percentage = round((khan_votes / total_votes) * 100,2)
-correy_percentage = round((correy_votes / total_votes) * 100,2)
-li_percentage = round((li_votes / total_votes) * 100,2)
-otooley_percentage = round((otooley_votes / total_votes) * 100,2) 
+#Determine the percentage of votes for each candidate 
+khan_percentage = round((khan_votes / row_counter) * 100,2)
+correy_percentage = round((correy_votes / row_counter) * 100,2)
+li_percentage = round((li_votes / row_counter) * 100,2)
+otooley_percentage = round((otooley_votes / row_counter) * 100,2) 
   
 print("")
 print("")

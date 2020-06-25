@@ -21,9 +21,11 @@ min_date = ""
 # Path to collect data from the Resources folder
 budget_csv_path = os.path.join('Resources', 'budget_data.csv')
 
+# Open and read csv
 with open(budget_csv_path, 'r') as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
     
+    # Read the header row first
     header = next(csvreader)
 
     #read one line at a time
